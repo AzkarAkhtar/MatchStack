@@ -13,7 +13,7 @@ function App() {
   return (
     <>
         <Provider store = {reduxStore}>
-      <BrowserRouter>
+      <BrowserRouter basename="/MatchStack">
         <Routes>
           <Route path="/" element={<Body />}>
             <Route path="login" element={<LoginPage />} />
