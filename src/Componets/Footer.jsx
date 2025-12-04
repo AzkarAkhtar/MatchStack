@@ -22,13 +22,10 @@ const [showFooter, setShowFooter] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="grow p-10">
-        <h1 className="text-3xl font-bold mb-4">Welcome to My Page</h1>
-        <p className="mb-96">Scroll down to see the footer appear.</p>
-      </main>
+
 
       <footer
-        className={`footer sm:footer-horizontal bg-base-300 text-base-content p-10 fixed bottom-0 w-full transition-opacity duration-500 z-50 ${
+        className={`footer sm:footer-horizontal bg-base-100 text-base-content p-10 fixed bottom-0 w-full transition-opacity duration-500 z-50 ${
           showFooter ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       >

@@ -1,14 +1,29 @@
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
+import { useDispatch } from "react-redux";
+import { BASE_URL } from "../utlis/constant";
+import { removeUser } from "../utlis/userSlice";
 
 const Navbar =() => {
 
   const user = useSelector((store) => store.user);
   console.log("User in Navbar:", user);
+
+  const disptach = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = async () => {
+
+    await axios.post(BASE_URL +"/logout", {}, {withCredentials: true})
+    disptach(removeUser());
+    navigate("/login");
+  }
   
     return(
     <div className="navbar bg-base-300 shadow-sm">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl">daisyUI</a>
+    <Link to ="/" className="btn btn-ghost text-xl"> MatchStack</Link>
   </div>
   <div className="flex gap-2 items-center">
     {user && (
@@ -29,13 +44,14 @@ const Navbar =() => {
           className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
         >
           <li>
-            <a className="justify-between">
+            <Link to = "/Profile" className="justify-between">
               Profile
               <span className="badge">New</span>
-            </a>
+            </Link>
           </li>
-          <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
+          <li><Link to="/connectionRequest">ConnectionRequest</Link></li>
+          <li><Link to="/Myconnections">MyConnection</Link></li>
+          <li><a onClick={() => logout()}>Logout</a></li>
         </ul>
       </div>
     )}

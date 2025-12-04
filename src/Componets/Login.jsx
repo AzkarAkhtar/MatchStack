@@ -10,13 +10,15 @@ const LoginPage = ()=> {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
 
+  const [error, setError] = useState("")
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const loginuser = async ()=> {
     try{
-      const loginUserinfo = await axios.post(BASE_URL + "login",
+      const loginUserinfo = await axios.post(BASE_URL +"/login",
       {
         emailId,
         password
@@ -28,15 +30,19 @@ const LoginPage = ()=> {
 
     dispatch(setUser(loginUserinfo.data));
     return navigate("/") ;
-
-
+    
   }
+
   
-     catch (error){
-      console.error("Login failed", error);
+     catch (err){
+       if (err.response && err.response.data && err.response.data.error) {
+      setError(err.response.data.error);
+    } else {
+      setError("Something went wrong. Please try again!");
     }
     
   }
+}
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center">
@@ -81,7 +87,7 @@ const LoginPage = ()=> {
               </label>
               <a className="link link-hover text-primary">Forgot password?</a>
             </div>
-
+            <p className = "text-red-500">{error}</p>
             <button className="btn btn-primary w-full" onClick={() =>{loginuser()}}>Login</button>
           </form>
 

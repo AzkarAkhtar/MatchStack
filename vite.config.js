@@ -4,4 +4,11 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [tailwindcss(), react(),],
+  server: {
+    proxy: {
+      '/update': 'http://localhost:3000'
+    }
+    
+  },
+  base: "/MatchStack/",
 });
